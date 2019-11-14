@@ -1,14 +1,14 @@
 #include<stdio.h>
 #include<stdlib.h>
   
- //Ağaç düğüm yapımız
+ //AÄŸaÃ§ dÃ¼ÄŸÃ¼m yapÄ±mÄ±z
 struct node
 {
     int key;
     struct node *left, *right;
 };
   
-// düğüm oluşturan fonksiyon
+// dÃ¼ÄŸÃ¼m oluÅŸturan fonksiyon
 struct node *newNode(int item)
 {
     struct node *temp =  (struct node *)malloc(sizeof(struct node));
@@ -28,7 +28,7 @@ void inorder(struct node *root)
     }
 }
   
-/* Eleman ekleme işlemini yapan fonksiyon */
+/* Eleman ekleme iÅŸlemini yapan fonksiyon */
 struct node* insert(struct node* node, int key)
 {
      
@@ -44,8 +44,8 @@ struct node* insert(struct node* node, int key)
     return node;
 }
   
-/* Verilen düğümün alt ağacındaki en küçük düğümü bulan fonksiyon.
-   size konu anlatımında -varsa sağ alt ağacın en küçük elemanını elde etmemiz gerektiğini söylemiştim
+/* Verilen dÃ¼ÄŸÃ¼mÃ¼n alt aÄŸacÄ±ndaki en kÃ¼Ã§Ã¼k dÃ¼ÄŸÃ¼mÃ¼ bulan fonksiyon.
+  -varsa saÄŸ alt aÄŸacÄ±n en kÃ¼Ã§Ã¼k elemanÄ±nÄ± elde etmemiz gerektiÄŸini sÃ¶ylemiÅŸtim
  */
 struct node * minValueNode(struct node* node)
 {
@@ -55,36 +55,36 @@ struct node * minValueNode(struct node* node)
     while (current->left != NULL)
         current = current->left;
      
-    //En küçük düğüm return edilir.
+    //En kÃ¼Ã§Ã¼k dÃ¼ÄŸÃ¼m return edilir.
     return current;
 }
   
-/* silme işini yapan esas fonksiyonumuz */
+/* silme iÅŸini yapan esas fonksiyonumuz */
 struct node* deleteNode(struct node* root, int key)
 {
-    // kök düğüm NULL ise root'u return ediyor
+    // kÃ¶k dÃ¼ÄŸÃ¼m NULL ise root'u return ediyor
     if (root == NULL) return root;
   
-    // Silinmek istenen elemanı öncelikle bulmamız gerekiyor.
-    // Bu yüzden eğer silmek istediğimiz düğüm root'dan küçükse sol alt ağaca gidiyor
+    // Silinmek istenen elemanÄ± Ã¶ncelikle bulmamÄ±z gerekiyor.
+    // Bu yÃ¼zden eÄŸer silmek istediÄŸimiz dÃ¼ÄŸÃ¼m root'dan kÃ¼Ã§Ã¼kse sol alt aÄŸaca gidiyor
     if (key < root->key)
         root->left = deleteNode(root->left, key);
   
-    // Eğer silmek istediğimiz düğüm root'dan büyükse sağ alt ağaca gidiyor
+    // EÄŸer silmek istediÄŸimiz dÃ¼ÄŸÃ¼m root'dan bÃ¼yÃ¼kse saÄŸ alt aÄŸaca gidiyor
     else if (key > root->key)
         root->right = deleteNode(root->right, key);
   
-    // Yukarıdaki şartlardan hiçbirisi sağlanmıyorsa aradığımız düğümü bulduk demektir.
+    // YukarÄ±daki ÅŸartlardan hiÃ§birisi saÄŸlanmÄ±yorsa aradÄ±ÄŸÄ±mÄ±z dÃ¼ÄŸÃ¼mÃ¼ bulduk demektir.
     else
     {
-        // Eğer düğümün solda çocuğu yoksa...
+        // EÄŸer dÃ¼ÄŸÃ¼mÃ¼n solda Ã§ocuÄŸu yoksa...
         if (root->left == NULL)
         {
             struct node *temp = root->right;
             free(root);
             return temp;
         }
-        // eğer düğümün sağda çocuğu yoksa...
+        // eÄŸer dÃ¼ÄŸÃ¼mÃ¼n saÄŸda Ã§ocuÄŸu yoksa...
         else if (root->right == NULL)
         {
             struct node *temp = root->left;
@@ -92,20 +92,20 @@ struct node* deleteNode(struct node* root, int key)
             return temp;
         }
   
-        // İşin en can alıcı noktası burası, şimdi düğümün 2 çocuğu varsa nasıl eleman sileceğiz ona bakıyoruz
-        // minValueNode sağ alt ağaçtaki en küçük değeri bulur ve temp değerine atar.
+        // Ä°ÅŸin en can alÄ±cÄ± noktasÄ± burasÄ±, ÅŸimdi dÃ¼ÄŸÃ¼mÃ¼n 2 Ã§ocuÄŸu varsa nasÄ±l eleman sileceÄŸiz ona bakÄ±yoruz
+        // minValueNode saÄŸ alt aÄŸaÃ§taki en kÃ¼Ã§Ã¼k deÄŸeri bulur ve temp deÄŸerine atar.
         struct node* temp = minValueNode(root->right);
   
-        // Burada atama işlemi yaptık
+        // Burada atama iÅŸlemi yaptÄ±k
         root->key = temp->key;
   
-        // Burada ise silme işlemini gerçekleştiriyoruz
+        // Burada ise silme iÅŸlemini gerÃ§ekleÅŸtiriyoruz
         root->right = deleteNode(root->right, temp->key);
     }
     return root;
 }
   
-//test aşaması
+//test aÅŸamasÄ±
 int main()
 {
     /* 
